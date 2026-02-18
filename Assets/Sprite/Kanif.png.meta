@@ -1,0 +1,806 @@
+fileFormatVersion: 2
+guid: 9fd61dfc0eb3fcd409fde686e5fa515e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4060083392906938134
+    second: Kanif_0
+  - first:
+      213: 6209189228246724162
+    second: Kanif_1
+  - first:
+      213: 5197883711928388495
+    second: Kanif_2
+  - first:
+      213: 1422058249278567521
+    second: Kanif_3
+  - first:
+      213: 5777531654254973971
+    second: Kanif_4
+  - first:
+      213: -8698466813157033471
+    second: Kanif_5
+  - first:
+      213: -1394136176953022769
+    second: Kanif_6
+  - first:
+      213: 4550572198861702638
+    second: Kanif_7
+  - first:
+      213: -4597578818330608476
+    second: Kanif_8
+  - first:
+      213: -2861963428401893179
+    second: Kanif_9
+  - first:
+      213: -3909636022794022342
+    second: Kanif_10
+  - first:
+      213: 1428613446901836489
+    second: Kanif_11
+  - first:
+      213: -1422303105706898801
+    second: Kanif_12
+  - first:
+      213: -6245245117398713523
+    second: Kanif_13
+  - first:
+      213: -8517330344124175443
+    second: Kanif_14
+  - first:
+      213: 7779013730731080338
+    second: Kanif_15
+  - first:
+      213: -3037926315150213117
+    second: Kanif_16
+  - first:
+      213: -5026210584527244629
+    second: Kanif_17
+  - first:
+      213: 274563727038547443
+    second: Kanif_18
+  - first:
+      213: -2940962991249031897
+    second: Kanif_19
+  - first:
+      213: 8618654394523694337
+    second: Kanif_20
+  - first:
+      213: 6343829072725433946
+    second: Kanif_21
+  - first:
+      213: -879245048193284314
+    second: Kanif_22
+  - first:
+      213: -3836641903543545158
+    second: Kanif_23
+  - first:
+      213: -3036027813436906939
+    second: Kanif_24
+  - first:
+      213: 3556441033097177066
+    second: Kanif_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Kanif_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 368
+        width: 392
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae8b1575aafa7a7c0800000000000000
+      internalID: -4060083392906938134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_1
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 659
+        width: 37
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24ee3d494b87b2650800000000000000
+      internalID: 6209189228246724162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_2
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 626
+        width: 45
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8bc74942b7922840800000000000000
+      internalID: 5197883711928388495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_3
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 655
+        width: 61
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 164b92e717a2cb310800000000000000
+      internalID: 1422058249278567521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_4
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 625
+        width: 75
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 314517acd6aed2050800000000000000
+      internalID: 5777531654254973971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_5
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 549
+        width: 188
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10a30471586d84780800000000000000
+      internalID: -8698466813157033471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_6
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 606
+        width: 50
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc6a134988807ace0800000000000000
+      internalID: -1394136176953022769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_7
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 604
+        width: 52
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee58bed0e41e62f30800000000000000
+      internalID: 4550572198861702638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_8
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 505
+        width: 22
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ac3b8a7c6e1230c0800000000000000
+      internalID: -4597578818330608476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_9
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 535
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c032f9dc634848d0800000000000000
+      internalID: -2861963428401893179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_10
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 493
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a329a4c50ce2eb9c0800000000000000
+      internalID: -3909636022794022342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_11
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 469
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ca2eef5c5473d310800000000000000
+      internalID: 1428613446901836489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_12
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 505
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8ac76d6cd6f24ce0800000000000000
+      internalID: -1422303105706898801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_13
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 420
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4bf43a87ae6459a0800000000000000
+      internalID: -6245245117398713523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_14
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 456
+        width: 48
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daba2d3cd2d5cc980800000000000000
+      internalID: -8517330344124175443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_15
+      rect:
+        serializedVersion: 2
+        x: 1078
+        y: 437
+        width: 65
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29abc1be5cb94fb60800000000000000
+      internalID: 7779013730731080338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_16
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 398
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30009abac1e17d5d0800000000000000
+      internalID: -3037926315150213117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_17
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 160
+        width: 160
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba2f1f67a105f3ab0800000000000000
+      internalID: -5026210584527244629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_18
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 243
+        width: 60
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f5075a41427fc300800000000000000
+      internalID: 274563727038547443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_19
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 311
+        width: 63
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72df709cdb99f27d0800000000000000
+      internalID: -2940962991249031897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_20
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 266
+        width: 70
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 105b17b128c9b9770800000000000000
+      internalID: 8618654394523694337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_21
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 269
+        width: 52
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e589b3eeec90850800000000000000
+      internalID: 6343829072725433946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_22
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 62
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6270bef794b4cc3f0800000000000000
+      internalID: -879245048193284314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_23
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 62
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab298e0248281cac0800000000000000
+      internalID: -3836641903543545158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_24
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 102
+        width: 74
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54223eb0accddd5d0800000000000000
+      internalID: -3036027813436906939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kanif_25
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 72
+        width: 148
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae7616ad6440b5130800000000000000
+      internalID: 3556441033097177066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Kanif_0: -4060083392906938134
+      Kanif_1: 6209189228246724162
+      Kanif_10: -3909636022794022342
+      Kanif_11: 1428613446901836489
+      Kanif_12: -1422303105706898801
+      Kanif_13: -6245245117398713523
+      Kanif_14: -8517330344124175443
+      Kanif_15: 7779013730731080338
+      Kanif_16: -3037926315150213117
+      Kanif_17: -5026210584527244629
+      Kanif_18: 274563727038547443
+      Kanif_19: -2940962991249031897
+      Kanif_2: 5197883711928388495
+      Kanif_20: 8618654394523694337
+      Kanif_21: 6343829072725433946
+      Kanif_22: -879245048193284314
+      Kanif_23: -3836641903543545158
+      Kanif_24: -3036027813436906939
+      Kanif_25: 3556441033097177066
+      Kanif_3: 1422058249278567521
+      Kanif_4: 5777531654254973971
+      Kanif_5: -8698466813157033471
+      Kanif_6: -1394136176953022769
+      Kanif_7: 4550572198861702638
+      Kanif_8: -4597578818330608476
+      Kanif_9: -2861963428401893179
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

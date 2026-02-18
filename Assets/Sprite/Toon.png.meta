@@ -1,0 +1,806 @@
+fileFormatVersion: 2
+guid: 4ae82dd263558294da77520f69295270
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -10913837493355817
+    second: Toon_0
+  - first:
+      213: -6412744427155965952
+    second: Toon_1
+  - first:
+      213: -5642500224651092751
+    second: Toon_2
+  - first:
+      213: -282451298790277124
+    second: Toon_3
+  - first:
+      213: 547917896727484762
+    second: Toon_4
+  - first:
+      213: -9117113617146456153
+    second: Toon_5
+  - first:
+      213: 7568406785631529209
+    second: Toon_6
+  - first:
+      213: 8249373113375643954
+    second: Toon_7
+  - first:
+      213: -8340042343578762588
+    second: Toon_8
+  - first:
+      213: 7534273216879403995
+    second: Toon_9
+  - first:
+      213: 8969491036648106651
+    second: Toon_10
+  - first:
+      213: -8778489657476517418
+    second: Toon_11
+  - first:
+      213: 1675045146218915369
+    second: Toon_12
+  - first:
+      213: 5085527841132287857
+    second: Toon_13
+  - first:
+      213: 3953333167586080016
+    second: Toon_14
+  - first:
+      213: 5308475622929812234
+    second: Toon_15
+  - first:
+      213: -7087625390209686145
+    second: Toon_16
+  - first:
+      213: -6792450574570473406
+    second: Toon_17
+  - first:
+      213: 4311013848750852882
+    second: Toon_18
+  - first:
+      213: 6763501207758481626
+    second: Toon_19
+  - first:
+      213: 5167821944581739054
+    second: Toon_20
+  - first:
+      213: 7208153102036020191
+    second: Toon_21
+  - first:
+      213: 2129615663746587027
+    second: Toon_22
+  - first:
+      213: -9202724443404555589
+    second: Toon_23
+  - first:
+      213: -7467412720798989891
+    second: Toon_24
+  - first:
+      213: -3607329423112884751
+    second: Toon_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Toon_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 368
+        width: 392
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7da72113ce939dff0800000000000000
+      internalID: -10913837493355817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_1
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 659
+        width: 37
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 008b0007bea5107a0800000000000000
+      internalID: -6412744427155965952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_2
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 626
+        width: 45
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fc1c90e0ffc1b1b0800000000000000
+      internalID: -5642500224651092751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_3
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 655
+        width: 61
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfff14d4a08841cf0800000000000000
+      internalID: -282451298790277124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_4
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 625
+        width: 75
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5955809c689a9700800000000000000
+      internalID: 547917896727484762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_5
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 549
+        width: 188
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a7db114871897180800000000000000
+      internalID: -9117113617146456153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_6
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 606
+        width: 50
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f829355fd1680960800000000000000
+      internalID: 7568406785631529209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_7
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 604
+        width: 52
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 239d96ab329ab7270800000000000000
+      internalID: 8249373113375643954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_8
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 505
+        width: 22
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a2854b0da7324c80800000000000000
+      internalID: -8340042343578762588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_9
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 535
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd326dc829d1f8860800000000000000
+      internalID: 7534273216879403995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_10
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 493
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9ae57f43980a7c70800000000000000
+      internalID: 8969491036648106651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_11
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 469
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d1fbadba2a8c2680800000000000000
+      internalID: -8778489657476517418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_12
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 505
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 926ee1b8fa4fe3710800000000000000
+      internalID: 1675045146218915369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_13
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 420
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1779c0290ac639640800000000000000
+      internalID: 5085527841132287857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_14
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 456
+        width: 48
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015fcbcf19f0dd630800000000000000
+      internalID: 3953333167586080016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_15
+      rect:
+        serializedVersion: 2
+        x: 1078
+        y: 437
+        width: 65
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0b4d8b147e7ba940800000000000000
+      internalID: 5308475622929812234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_16
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 398
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f75238b6242b3ad90800000000000000
+      internalID: -7087625390209686145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_17
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 160
+        width: 160
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 248345cb03e5cb1a0800000000000000
+      internalID: -6792450574570473406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_18
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 243
+        width: 60
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b8594314cc3db30800000000000000
+      internalID: 4311013848750852882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_19
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 311
+        width: 63
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8ae5e8388ccdd50800000000000000
+      internalID: 6763501207758481626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_20
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 266
+        width: 70
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e225345adaac7b740800000000000000
+      internalID: 5167821944581739054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_21
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 269
+        width: 52
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdbac7d4e01880460800000000000000
+      internalID: 7208153102036020191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_22
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 62
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39919b9b92aed8d10800000000000000
+      internalID: 2129615663746587027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_23
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 62
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bba211970ea594080800000000000000
+      internalID: -9202724443404555589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_24
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 102
+        width: 74
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db10b89c1bb6e5890800000000000000
+      internalID: -7467412720798989891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Toon_25
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 72
+        width: 148
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fdaa8b800130fdc0800000000000000
+      internalID: -3607329423112884751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Toon_0: -10913837493355817
+      Toon_1: -6412744427155965952
+      Toon_10: 8969491036648106651
+      Toon_11: -8778489657476517418
+      Toon_12: 1675045146218915369
+      Toon_13: 5085527841132287857
+      Toon_14: 3953333167586080016
+      Toon_15: 5308475622929812234
+      Toon_16: -7087625390209686145
+      Toon_17: -6792450574570473406
+      Toon_18: 4311013848750852882
+      Toon_19: 6763501207758481626
+      Toon_2: -5642500224651092751
+      Toon_20: 5167821944581739054
+      Toon_21: 7208153102036020191
+      Toon_22: 2129615663746587027
+      Toon_23: -9202724443404555589
+      Toon_24: -7467412720798989891
+      Toon_25: -3607329423112884751
+      Toon_3: -282451298790277124
+      Toon_4: 547917896727484762
+      Toon_5: -9117113617146456153
+      Toon_6: 7568406785631529209
+      Toon_7: 8249373113375643954
+      Toon_8: -8340042343578762588
+      Toon_9: 7534273216879403995
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
