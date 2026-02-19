@@ -22,8 +22,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        DisplayLevel();
-        SpawnManager.Instance.SpawnPlayer();
+        
     }
 
     void Update()

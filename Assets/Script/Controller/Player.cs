@@ -35,5 +35,11 @@ public class Player : MonoBehaviour
             isGameOver = true;
             UIManager.Instance.GameOver();
         }
+
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            isGameOver = true;
+            UIManager.Instance.GameOver();
+        }
     }
 }

@@ -15,6 +15,7 @@ public class DrawLineWithMouse : MonoBehaviour
     private LineRenderer lineRenderer;
     private List<Vector2> localPoints = new List<Vector2>();
     private Rigidbody2D rb;
+    private Vector2 initialPosition;
     private Vector2 previousPoint;
 
     private void Awake()
@@ -31,11 +32,14 @@ public class DrawLineWithMouse : MonoBehaviour
 
     void Start()
     {
+        initialPosition = transform.position;
         lineRenderer = GetComponent<LineRenderer>();
         edgeCollider = gameObject.AddComponent<EdgeCollider2D>();
         edgeCollider.edgeRadius = 0.05f;
 
         rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
         AddKinematic();
     }
 
@@ -45,6 +49,8 @@ public class DrawLineWithMouse : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = 0f;
             StartDrawing();
         }
 
@@ -61,7 +67,6 @@ public class DrawLineWithMouse : MonoBehaviour
 
     public void AddKinematic()
     {
-        Debug.Log("RB : " + rb.bodyType);
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
 
@@ -73,6 +78,7 @@ public class DrawLineWithMouse : MonoBehaviour
     {
         AddKinematic();
 
+        edgeCollider.enabled = false;
         localPoints.Clear();
         lineRenderer.positionCount = 0;
         lineRenderer.startWidth = 0.07f;
@@ -110,17 +116,40 @@ public class DrawLineWithMouse : MonoBehaviour
     {
         hasDrawn = true;
 
+        edgeCollider.enabled = true;
+
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1f;
     }
 
+    //public void ClearLine()
+    //{
+    //    localPoints.Clear();
+    //    lineRenderer.positionCount = 0;
+    //    edgeCollider.points = new Vector2[0];
+
+    //    AddKinematic();
+
+    //    hasDrawn = false;
+    //    canDraw = false;
+    //}
+
     public void ClearLine()
     {
+        transform.position = initialPosition;
+        transform.rotation = Quaternion.identity;
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = 0f;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.Sleep();
+
+        edgeCollider.enabled = false;
+
         localPoints.Clear();
         lineRenderer.positionCount = 0;
         edgeCollider.points = new Vector2[0];
-
-        AddKinematic();
 
         hasDrawn = false;
         canDraw = false;

@@ -11,9 +11,10 @@ public class SpawnManager : MonoBehaviour
 
     private List<Rigidbody2D> bees = new List<Rigidbody2D>();
     private List<GameObject> players = new List<GameObject>();
-    private Vector3 catPos;
+    private GameObject player;
+    private Transform playerTransform;
     private int maxBees = 5, count = 0;
-    private float spawnInterval = 1.5f, nextSpawnTime;
+    private float spawnInterval = 0.15f, nextSpawnTime;
 
     public float moveSpeed = 3f;
     public float steerStrength = 2f;
@@ -33,45 +34,48 @@ public class SpawnManager : MonoBehaviour
             count++;
         }
 
-        for (int i = 0; i < bees.Count; i++)
-        {
-            Rigidbody2D b = bees[i];
+        if (playerTransform == null) return;
 
-            if (b == null) continue;
+        //for (int i = 0; i < bees.Count; i++)
+        //{
+        //    Rigidbody2D b = bees[i];
 
-            Vector2 beePos = b.position;
-            Vector2 targetPos = catPos;
+        //    if (b == null) continue;
 
-            Vector2 toPlayer = (targetPos - beePos).normalized;
+        //    Vector2 beePos = b.position;
 
-            EdgeCollider2D lineCollider = DrawLineWithMouse.Instance.edgeCollider;
-            bool pathBlocked = false;
+        //    Vector2 targetPos = playerTransform.position;
 
-            if (lineCollider != null && lineCollider.pointCount > 1)
-            {
-                RaycastHit2D hit = Physics2D.Linecast(beePos, targetPos);
+        //    Vector2 dir = (targetPos - beePos).normalized;
 
-                if (hit.collider == lineCollider)
-                {
-                    pathBlocked = true;
-                }
-            }
+        //    //EdgeCollider2D lineCollider = DrawLineWithMouse.Instance.edgeCollider;
+        //    //bool pathBlocked = false;
 
-            Vector2 moveDir;
+        //    //if (lineCollider != null && lineCollider.pointCount > 1)
+        //    //{
+        //    //    RaycastHit2D hit = Physics2D.Linecast(beePos, targetPos);
 
-            if (!pathBlocked)
-            {
-                moveDir = toPlayer;
-            }
-            else
-            {
-                // Slide along line instead of pushing upward
-                Vector2 slideDir = new Vector2(toPlayer.y, -toPlayer.x);
-                moveDir = (toPlayer * 0.7f + slideDir * 0.3f).normalized;
-            }
+        //    //    if (hit.collider == lineCollider)
+        //    //    {
+        //    //        pathBlocked = true;
+        //    //    }
+        //    //}
 
-            b.MovePosition(beePos + moveDir * moveSpeed * Time.fixedDeltaTime);
-        }
+        //    //Vector2 moveDir = dir;
+
+        //    //if (!pathBlocked)
+        //    //{
+        //    //    moveDir = toPlayer;
+        //    //}
+        //    //else
+        //    //{
+        //    //    Vector2 slideDir = new Vector2(toPlayer.y, -toPlayer.x);
+        //    //    moveDir = (toPlayer * 0.7f + slideDir * 0.3f).normalized;
+        //    //}
+
+        //    //b.MovePosition(beePos + moveDir * moveSpeed * Time.fixedDeltaTime);
+        //    b.linearVelocity = dir * moveSpeed;
+        //}
     }
 
     public void SpawnBee()
@@ -81,7 +85,7 @@ public class SpawnManager : MonoBehaviour
         bees.Add(rb);
     }
 
-    // Destroy a single bee (can be called when bee hits player, etc.)
+    // Destroy a single bee
     public void DestroyBee(Rigidbody2D beeRb)
     {
         if (beeRb == null) return;
@@ -91,7 +95,7 @@ public class SpawnManager : MonoBehaviour
         count = Mathf.Max(0, count - 1);
     }
 
-    // Destroy ALL bees (call on level end, game over, reset, etc.)
+    // Destroy ALL bees
     public void DestroyAllBees()
     {
         for (int i = 0; i < bees.Count; i++)
@@ -112,10 +116,16 @@ public class SpawnManager : MonoBehaviour
         count = 0;
     }
 
+    public Transform GetPlayerTransform()
+    {
+        return playerTransform;
+    }
+
     public void SpawnPlayer()
     {
-        catPos = playerPos[LevelManager.Instance.currentLevel - 1].position;
-        GameObject player = Instantiate(playerPrefab, catPos, Quaternion.identity);
+        Vector3 initialSpawnPos = playerPos[LevelManager.Instance.currentLevel - 1].position;
+        player = Instantiate(playerPrefab, initialSpawnPos, Quaternion.identity);
+        playerTransform = player.transform;
         players.Add(player);
     }
 

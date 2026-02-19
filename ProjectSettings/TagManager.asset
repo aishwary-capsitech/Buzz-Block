@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Bee
+  - Spike
   layers:
   - Default
   - TransparentFX
