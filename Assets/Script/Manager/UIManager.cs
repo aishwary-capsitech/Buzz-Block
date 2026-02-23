@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         lr = drawLine.GetComponent<LineRenderer>();
 
         startPanel.SetActive(true);
+        gamePlayPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         gameWinPanel.SetActive(false);
 
@@ -62,7 +63,7 @@ public class UIManager : MonoBehaviour
             levelText.text = "Level " + LevelManager.Instance.currentLevel;
         }
 
-        if (LevelManager.Instance.currentLevel == 4)
+        if (LevelManager.Instance.currentLevel == 5)
         {
             nextButton.SetActive(false);
         }
@@ -71,6 +72,7 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         isGameRunning = true;
+        gamePlayPanel.SetActive(true);
         LevelManager.Instance.DisplayLevel();
         SpawnManager.Instance.SpawnPlayer();
         startPanel.SetActive(false);
@@ -128,6 +130,8 @@ public class UIManager : MonoBehaviour
     {
         DrawLineWithMouse.Instance.AddKinematic();
         SpawnManager.Instance.DestroyAllBees();
+        SpawnManager.Instance.DestroyAllKites();
+        SpawnManager.Instance.DestroyAllPabbles();
         //SpawnManager.Instance.ResetSpawner();
         SpawnManager.Instance.DestroyPlayer();
         if (gameOverPanel.activeSelf)
@@ -147,6 +151,8 @@ public class UIManager : MonoBehaviour
         isGameRunning = true;
         DrawLineWithMouse.Instance.AddKinematic();
         SpawnManager.Instance.DestroyAllBees();
+        SpawnManager.Instance.DestroyAllKites();
+        SpawnManager.Instance.DestroyAllPabbles();
         //SpawnManager.Instance.ResetSpawner();
 
         SpawnManager.Instance.DestroyPlayer();
@@ -179,6 +185,8 @@ public class UIManager : MonoBehaviour
         SpawnManager.Instance.SpawnPlayer();
 
         SpawnManager.Instance.DestroyAllBees();
+        SpawnManager.Instance.DestroyAllKites();
+        SpawnManager.Instance.DestroyAllPabbles();
         //SpawnManager.Instance.ResetSpawner();
 
         if (gameWinPanel.activeSelf)

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,20 +6,22 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
 
-    public GameObject beePrefeb, playerPrefab;
-    public Transform spawnPoint;
+    public GameObject beePrefeb,kitePrefab, playerPrefab, pabblePrefab, snakePrefab;
+    public Transform spawnPoint, kiteSpawnPoint;
     public Transform[] playerPos;
-
-    private List<Rigidbody2D> bees = new List<Rigidbody2D>();
-    private List<GameObject> players = new List<GameObject>();
-    private GameObject player;
-    private Transform playerTransform;
-    private int maxBees = 5, count = 0;
-    private float spawnInterval = 0.15f, nextSpawnTime;
 
     public float moveSpeed = 3f;
     public float steerStrength = 2f;
     public float obstacleCheckRadius = 0.1f;
+
+    private List<Rigidbody2D> bees = new List<Rigidbody2D>();
+    private List<Rigidbody2D> kites = new List<Rigidbody2D>();
+    private List<GameObject> players = new List<GameObject>();
+    private List<GameObject> pabbles = new List<GameObject>();
+    private GameObject player;
+    private Transform playerTransform;
+    private int maxBees = 5, count = 0;
+    private float spawnInterval = 0.15f, pabbleSpawnInterval = 1.7f, nextSpawnTime, pabbleNextSpawnTime;
 
     private void Awake()
     {
@@ -32,50 +35,23 @@ public class SpawnManager : MonoBehaviour
             SpawnBee();
             nextSpawnTime = Time.time + spawnInterval;
             count++;
+
+            if (count == 1)
+            {
+                SpawnKite();
+            }
+        }
+
+        if (Time.time >= pabbleNextSpawnTime && DrawLineWithMouse.Instance.hasDrawn)
+        {
+            SpawnPabbles();
+            pabbleNextSpawnTime = Time.time + pabbleSpawnInterval;
         }
 
         if (playerTransform == null) return;
 
-        //for (int i = 0; i < bees.Count; i++)
-        //{
-        //    Rigidbody2D b = bees[i];
-
-        //    if (b == null) continue;
-
-        //    Vector2 beePos = b.position;
-
-        //    Vector2 targetPos = playerTransform.position;
-
-        //    Vector2 dir = (targetPos - beePos).normalized;
-
-        //    //EdgeCollider2D lineCollider = DrawLineWithMouse.Instance.edgeCollider;
-        //    //bool pathBlocked = false;
-
-        //    //if (lineCollider != null && lineCollider.pointCount > 1)
-        //    //{
-        //    //    RaycastHit2D hit = Physics2D.Linecast(beePos, targetPos);
-
-        //    //    if (hit.collider == lineCollider)
-        //    //    {
-        //    //        pathBlocked = true;
-        //    //    }
-        //    //}
-
-        //    //Vector2 moveDir = dir;
-
-        //    //if (!pathBlocked)
-        //    //{
-        //    //    moveDir = toPlayer;
-        //    //}
-        //    //else
-        //    //{
-        //    //    Vector2 slideDir = new Vector2(toPlayer.y, -toPlayer.x);
-        //    //    moveDir = (toPlayer * 0.7f + slideDir * 0.3f).normalized;
-        //    //}
-
-        //    //b.MovePosition(beePos + moveDir * moveSpeed * Time.fixedDeltaTime);
-        //    b.linearVelocity = dir * moveSpeed;
-        //}
+        StartCoroutine(SnakeScale());
+        StartCoroutine(SnakeShrink());
     }
 
     public void SpawnBee()
@@ -116,6 +92,63 @@ public class SpawnManager : MonoBehaviour
         count = 0;
     }
 
+    public void SpawnKite()
+    {
+        GameObject newKite = Instantiate(kitePrefab, kiteSpawnPoint.position, Quaternion.identity);
+        Rigidbody2D rb = newKite.GetComponent<Rigidbody2D>();
+        kites.Add(rb);
+    }
+
+    // Destroy a single bee
+    public void DestroyKite(Rigidbody2D kiteRb)
+    {
+        if (kiteRb == null) return;
+
+        kites.Remove(kiteRb);
+        Destroy(kiteRb.gameObject);
+        count = Mathf.Max(0, count - 1);
+    }
+
+    // Destroy ALL bees
+    public void DestroyAllKites()
+    {
+        for (int i = 0; i < kites.Count; i++)
+        {
+            if (kites[i] != null)
+            {
+                Destroy(kites[i].gameObject);
+            }
+        }
+
+        kites.Clear();
+        count = 0;
+    }
+
+    public void SpawnPabbles()
+    {
+        float screenHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
+
+        float leftX = -screenHalfWidth;
+        float rightX = screenHalfWidth;
+
+        float spawnPos = Random.Range(leftX, rightX);
+        
+        GameObject newPabble = Instantiate(pabblePrefab, new Vector3(spawnPos, 7f, 0), Quaternion.identity);
+        pabbles.Add(newPabble);
+    }
+
+    public void DestroyAllPabbles()
+    {
+        for (int i = 0; i < pabbles.Count; i++)
+        {
+            if (pabbles[i] != null)
+            {
+                Destroy(pabbles[i]);
+            }
+        }
+        pabbles.Clear();
+    }
+
     public Transform GetPlayerTransform()
     {
         return playerTransform;
@@ -140,5 +173,36 @@ public class SpawnManager : MonoBehaviour
         }
 
         players.Clear();
+    }
+
+    private IEnumerator SnakeScale()
+    {
+        //GameObject snake = Instantiate(snakePrefab, new Vector3(1.3f, 1.5f, 0), Quaternion.identity);
+        float scaleDuration = 1f;
+        float elapsedTime = 0f;
+        while (elapsedTime < scaleDuration)
+        {
+            float scale = Mathf.Lerp(2f, 3.5f, elapsedTime / scaleDuration);
+            snakePrefab.transform.localScale = new Vector3(2, scale, 2);
+            snakePrefab.transform.position = new Vector3(1.35f, 0, 0);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        snakePrefab.transform.localScale = Vector3.one;
+    }
+
+    private IEnumerator SnakeShrink()
+    {
+        float shrinkDuration = 1f;
+        float elapsedTime = 0f;
+        while (elapsedTime < shrinkDuration)
+        {
+            float scale = Mathf.Lerp(3.5f, 2f, elapsedTime / shrinkDuration);
+            snakePrefab.transform.localScale = new Vector3(2, scale, 2);
+            snakePrefab.transform.position = new Vector3(1.35f, 1.5f, 0);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        snakePrefab.transform.localScale = Vector3.one;
     }
 }

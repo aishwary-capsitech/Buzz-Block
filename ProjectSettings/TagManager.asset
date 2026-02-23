@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Bee
   - Spike
+  - Kite
+  - Ground
+  - Pabble
   layers:
   - Default
   - TransparentFX

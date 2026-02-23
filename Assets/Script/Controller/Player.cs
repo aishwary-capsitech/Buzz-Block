@@ -12,10 +12,6 @@ public class Player : MonoBehaviour
         {
             Instance = this;
         }
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
     }
 
     void Start()
@@ -30,13 +26,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Bee"))
-        {
-            isGameOver = true;
-            UIManager.Instance.GameOver();
-        }
-
-        if (collision.gameObject.CompareTag("Spike"))
+        if (collision.gameObject.CompareTag("Bee") || collision.gameObject.CompareTag("Kite") || collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Pabble"))
         {
             isGameOver = true;
             UIManager.Instance.GameOver();

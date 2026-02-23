@@ -36,6 +36,20 @@ public class Bee : MonoBehaviour
 
         Vector2 dir = ((Vector2)player.position - rb.position).normalized;
         rb.linearVelocity = dir * moveSpeed;
+
+        ChangeDir();
+    }
+
+    private void ChangeDir()
+    {
+        if (gameObject.transform.position.x < player.position.x)
+        {
+            transform.localRotation = Quaternion.Euler(0, 180f, 0);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,10 +63,16 @@ public class Bee : MonoBehaviour
         {
             StartCoroutine(StunCoroutine(stunToPlayer));
         }
-        //if (collision.gameObject.CompareTag("Bee"))
-        //{
-        //    StartCoroutine(StunCoroutine(stunDuration));
-        //}
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            StartCoroutine(StunCoroutine(stunDuration));
+        }
+
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator StunCoroutine(float duration)

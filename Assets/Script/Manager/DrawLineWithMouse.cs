@@ -122,18 +122,6 @@ public class DrawLineWithMouse : MonoBehaviour
         rb.gravityScale = 1f;
     }
 
-    //public void ClearLine()
-    //{
-    //    localPoints.Clear();
-    //    lineRenderer.positionCount = 0;
-    //    edgeCollider.points = new Vector2[0];
-
-    //    AddKinematic();
-
-    //    hasDrawn = false;
-    //    canDraw = false;
-    //}
-
     public void ClearLine()
     {
         transform.position = initialPosition;
