@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -48,9 +49,13 @@ public class UIManager : MonoBehaviour
             UpdateTimer();
         }
 
-        if (timerImage != null && timerImage.fillAmount <= 0)
+        if ((timerImage != null && timerImage.fillAmount <= 0) || SpawnManager.Instance.isAllEnemyDead)
         {
             GameWin();
+            if(LevelManager.Instance.currentLevel == 7)
+            {
+                Player.Instance.WinImage();
+            }
         }
 
         DisplayLevel();
@@ -63,7 +68,7 @@ public class UIManager : MonoBehaviour
             levelText.text = "Level " + LevelManager.Instance.currentLevel;
         }
 
-        if (LevelManager.Instance.currentLevel == 5)
+        if (LevelManager.Instance.currentLevel == 8)
         {
             nextButton.SetActive(false);
         }
@@ -122,6 +127,7 @@ public class UIManager : MonoBehaviour
             isGameRunning = false;
             gameOverPanel.SetActive(true);
             gameWinPanel.SetActive(false);
+            DrawLineWithMouse.Instance.canDraw = false;
             //DrawLineWithMouse.Instance.AddKinematic();
         }
     }
@@ -130,8 +136,10 @@ public class UIManager : MonoBehaviour
     {
         DrawLineWithMouse.Instance.AddKinematic();
         SpawnManager.Instance.DestroyAllBees();
+        SpawnManager.Instance.DestroyAllPiranha();
         SpawnManager.Instance.DestroyAllKites();
         SpawnManager.Instance.DestroyAllPabbles();
+        SpawnManager.Instance.DestroyAllCircles();
         //SpawnManager.Instance.ResetSpawner();
         SpawnManager.Instance.DestroyPlayer();
         if (gameOverPanel.activeSelf)
@@ -140,6 +148,7 @@ public class UIManager : MonoBehaviour
             gameWinPanel.SetActive(false);
         ResetTimer();
         Player.Instance.isGameOver = false;
+        SpawnManager.Instance.isAllEnemyDead = false;
         drawLine.ClearLine();
         lr.enabled = false;
         startPanel.SetActive(true);
@@ -151,12 +160,19 @@ public class UIManager : MonoBehaviour
         isGameRunning = true;
         DrawLineWithMouse.Instance.AddKinematic();
         SpawnManager.Instance.DestroyAllBees();
+        SpawnManager.Instance.DestroyAllPiranha();
         SpawnManager.Instance.DestroyAllKites();
         SpawnManager.Instance.DestroyAllPabbles();
         //SpawnManager.Instance.ResetSpawner();
 
         SpawnManager.Instance.DestroyPlayer();
         SpawnManager.Instance.SpawnPlayer();
+
+        if(LevelManager.Instance.currentLevel == 7)
+        {
+            SpawnManager.Instance.DestroyAllCircles();
+            SpawnManager.Instance.SpawnCircle();
+        }
 
         if (gameOverPanel.activeSelf)
             gameOverPanel.SetActive(false);
@@ -166,6 +182,7 @@ public class UIManager : MonoBehaviour
 
         ResetTimer();
         Player.Instance.isGameOver = false;
+        SpawnManager.Instance.isAllEnemyDead = false;
 
         drawLine.ClearLine();
         lr.enabled = true;
@@ -184,7 +201,18 @@ public class UIManager : MonoBehaviour
         SpawnManager.Instance.DestroyPlayer();
         SpawnManager.Instance.SpawnPlayer();
 
+        if (LevelManager.Instance.currentLevel == 7)
+        {
+            SpawnManager.Instance.DestroyAllCircles();
+            SpawnManager.Instance.SpawnCircle();
+        }
+        if(LevelManager.Instance.currentLevel == 8)
+        {
+            SpawnManager.Instance.DestroyAllCircles();
+        }
+
         SpawnManager.Instance.DestroyAllBees();
+        SpawnManager.Instance.DestroyAllPiranha();
         SpawnManager.Instance.DestroyAllKites();
         SpawnManager.Instance.DestroyAllPabbles();
         //SpawnManager.Instance.ResetSpawner();
@@ -194,6 +222,7 @@ public class UIManager : MonoBehaviour
 
         ResetTimer();
         Player.Instance.isGameOver = false;
+        SpawnManager.Instance.isAllEnemyDead = false;
         drawLine.ClearLine();
         lr.enabled = true;
         StartCoroutine(EnableDrawingNextFrame());

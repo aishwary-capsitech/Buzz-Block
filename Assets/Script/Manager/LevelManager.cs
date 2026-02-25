@@ -5,8 +5,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
 
     public GameObject[] levels;
-    public int startLevel = 1;
-    public int currentLevel = 1;
+    public int startLevel = 0;
+    public int currentLevel = 0;
 
     private void Awake()
     {

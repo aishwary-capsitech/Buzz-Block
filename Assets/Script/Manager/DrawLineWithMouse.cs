@@ -35,6 +35,7 @@ public class DrawLineWithMouse : MonoBehaviour
         initialPosition = transform.position;
         lineRenderer = GetComponent<LineRenderer>();
         edgeCollider = gameObject.AddComponent<EdgeCollider2D>();
+        edgeCollider.enabled = false;
         edgeCollider.edgeRadius = 0.05f;
 
         rb = GetComponent<Rigidbody2D>();
@@ -114,6 +115,11 @@ public class DrawLineWithMouse : MonoBehaviour
 
     void StopDrawingAndEnableGravity()
     {
+        if(localPoints.Count < 2)
+        {
+            return;
+        }
+
         hasDrawn = true;
 
         edgeCollider.enabled = true;

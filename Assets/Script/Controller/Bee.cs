@@ -42,7 +42,7 @@ public class Bee : MonoBehaviour
 
     private void ChangeDir()
     {
-        if (gameObject.transform.position.x < player.position.x)
+        if (gameObject.transform.position.x < player.position.x - 0.25f)
         {
             transform.localRotation = Quaternion.Euler(0, 180f, 0);
         }
@@ -72,6 +72,7 @@ public class Bee : MonoBehaviour
         if (collision.gameObject.CompareTag("Spike"))
         {
             Destroy(gameObject);
+            SpawnManager.Instance.DestroyBee(rb);
         }
     }
 

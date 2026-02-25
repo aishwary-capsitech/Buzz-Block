@@ -41,13 +41,27 @@ public class Kite : MonoBehaviour
 
     private void ChangeDir()
     {
-        if (gameObject.transform.position.x < player.position.x)
+        if (LevelManager.Instance.currentLevel != 0)
         {
-            transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            if (gameObject.transform.position.x < player.position.x)
+            {
+                transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            }
+            else
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
         }
         else
         {
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            if (gameObject.transform.position.x < player.position.x)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            }
         }
     }
 
