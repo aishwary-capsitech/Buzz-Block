@@ -9,6 +9,8 @@ TagManager:
   - Kite
   - Ground
   - Pabble
+  - Water
+  - Wall
   layers:
   - Default
   - TransparentFX

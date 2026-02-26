@@ -125,7 +125,13 @@ public class DrawLineWithMouse : MonoBehaviour
         edgeCollider.enabled = true;
 
         rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.gravityScale = 1f;
+        rb.gravityScale = 2f;
+
+        int currentLevel = LevelManager.Instance.currentLevel;
+        if (currentLevel == 7 || currentLevel == 9 || currentLevel == 10)
+        {
+            SpawnManager.Instance.SpawnCircle();
+        }
     }
 
     public void ClearLine()

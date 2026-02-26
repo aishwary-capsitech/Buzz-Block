@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
             levelText.text = "Level " + LevelManager.Instance.currentLevel;
         }
 
-        if (LevelManager.Instance.currentLevel == 8)
+        if (LevelManager.Instance.currentLevel == 10)
         {
             nextButton.SetActive(false);
         }
@@ -119,10 +119,13 @@ public class UIManager : MonoBehaviour
     public void GameOver()
     {
         #if UNITY_ANDROID || UNITY_IOS
-            Handheld.Vibrate();
+            if (!gameWinPanel.activeSelf)
+            {
+                Handheld.Vibrate();
+            }
         #endif
 
-        if (timerImage.fillAmount > 0)
+        if (timerImage.fillAmount > 0 && !gameWinPanel.activeSelf)
         {
             isGameRunning = false;
             gameOverPanel.SetActive(true);
@@ -168,10 +171,9 @@ public class UIManager : MonoBehaviour
         SpawnManager.Instance.DestroyPlayer();
         SpawnManager.Instance.SpawnPlayer();
 
-        if(LevelManager.Instance.currentLevel == 7)
+        if(LevelManager.Instance.currentLevel == 7 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 10)
         {
             SpawnManager.Instance.DestroyAllCircles();
-            SpawnManager.Instance.SpawnCircle();
         }
 
         if (gameOverPanel.activeSelf)
@@ -201,16 +203,7 @@ public class UIManager : MonoBehaviour
         SpawnManager.Instance.DestroyPlayer();
         SpawnManager.Instance.SpawnPlayer();
 
-        if (LevelManager.Instance.currentLevel == 7)
-        {
-            SpawnManager.Instance.DestroyAllCircles();
-            SpawnManager.Instance.SpawnCircle();
-        }
-        if(LevelManager.Instance.currentLevel == 8)
-        {
-            SpawnManager.Instance.DestroyAllCircles();
-        }
-
+        SpawnManager.Instance.DestroyAllCircles();
         SpawnManager.Instance.DestroyAllBees();
         SpawnManager.Instance.DestroyAllPiranha();
         SpawnManager.Instance.DestroyAllKites();

@@ -4,9 +4,13 @@ public class Bubble : MonoBehaviour
 {
     public static Bubble Instance;
 
+    private GameObject bubble;
+
     private void Awake()
     {
         Instance = this;
+
+        bubble = GetComponent<GameObject>();
     }
 
     // Update is called once per frame
@@ -21,9 +25,9 @@ public class Bubble : MonoBehaviour
         {
             Destroy(gameObject, 1.5f);
         }
-        if (LevelManager.Instance.currentLevel == 8) {
+        if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 10) {
 
-            float topY = -3f;
+            float topY = -3.3f;
 
             if(gameObject.transform.position.y > topY)
             {
@@ -34,9 +38,7 @@ public class Bubble : MonoBehaviour
 
     public void DestroyOnLevelChange()
     {
-        if (LevelManager.Instance.currentLevel == 1)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
+        SpawnManager.Instance.DestroyBubble(gameObject);
     }
 }

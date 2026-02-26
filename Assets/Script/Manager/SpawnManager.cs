@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject beePrefeb, crowPrefab, playerPrefab, fishPrefab, eggPrefab, snailPrefab, piranhaPrefab, snakePrefab, circlePrefab, bubblePrefab, tinyFishPrefab;
     public GameObject[] jellyfishPrefabs;
-    public Transform spawnPoint, kiteSpawnPoint, circlePos;
+    public Transform spawnPoint, kiteSpawnPoint, circlePos, circlePos2, circlePos3;
     public Transform[] playerPos;
     public Transform tinyFishSpawnPos, tinyFishTargetPos;
 
@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
             SpawnPiranha();
             nextSpawnTime = Time.time + spawnInterval;
             count++;
-            Debug.Log("Bees : "+count);
+            Debug.Log("Bees : " + count);
 
             if (count == 1)
             {
@@ -71,7 +71,6 @@ public class SpawnManager : MonoBehaviour
         if (Time.time >= bubbleNextSpawnTime && !UIManager.Instance.startPanel.activeSelf)
         {
             SpawnBubbles();
-            Debug.Log("Bubble Spawned");
             bubbleNextSpawnTime = Time.time + bubbleSpawnInterval;
         }
 
@@ -112,12 +111,15 @@ public class SpawnManager : MonoBehaviour
         float minorSpawnPosX = Random.Range(0.25f, 1.7f);
         float minorSpawnPosY = Random.Range(-4.8f, -4f);
 
+        float spawnPosXLvl9 = Random.Range(-1.8f, -0.3f);
+        float spawnPosYLvl9 = Random.Range(-5.7f, -3.5f);
+
         float scale = 0;
         if (LevelManager.Instance.currentLevel == 0)
         {
             scale = Random.Range(0.15f, 0.5f);
         }
-        else if (LevelManager.Instance.currentLevel == 8)
+        else if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9)
         {
             scale = Random.Range(0.15f, 0.3f);
         }
@@ -125,23 +127,59 @@ public class SpawnManager : MonoBehaviour
 
         string[] hexColors = { "#589FDB", "#9AB9D2" };
         Color[] colors = new Color[hexColors.Length];
-        for(int i = 0; i < hexColors.Length; i++)
+        for (int i = 0; i < hexColors.Length; i++)
         {
             ColorUtility.TryParseHtmlString(hexColors[i], out colors[i]);
         }
 
+        GameObject newBubble = null;
+
         if (LevelManager.Instance.currentLevel == 0)
         {
-            GameObject newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosX, spawnPosY,0f), Quaternion.identity);
+            newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosX, spawnPosY, 0f), Quaternion.identity);
             newBubble.GetComponent<SpriteRenderer>().color = colors[0];
-            bubbles.Add(newBubble);
+            //bubbles.Add(newBubble);
         }
-        if (LevelManager.Instance.currentLevel == 8)
+        else
         {
-            GameObject newBubble = Instantiate(bubblePrefab, new Vector3(minorSpawnPosX, minorSpawnPosY, 0f), Quaternion.identity);
-            newBubble.GetComponent<SpriteRenderer>().color = colors[1];
-            bubbles.Add(newBubble);
+            if (LevelManager.Instance.currentLevel == 8)
+            {
+                newBubble = Instantiate(bubblePrefab, new Vector3(minorSpawnPosX, minorSpawnPosY, 0f), Quaternion.identity);
+                //newBubble.GetComponent<SpriteRenderer>().color = colors[1];
+                //bubbles.Add(newBubble);
+            }
+            if (LevelManager.Instance.currentLevel == 9)
+            {
+                newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosXLvl9, spawnPosYLvl9, 0f), Quaternion.identity);
+                //newBubble.GetComponent<SpriteRenderer>().color = colors[1];
+                //bubbles.Add(newBubble);
+            }
+
+            if(newBubble != null)
+                newBubble.GetComponent<SpriteRenderer>().color = colors[1];
         }
+
+        bubbles.Add(newBubble);
+    }
+
+    public void DestroyBubble(GameObject bubbleRb)
+    {
+        if (bubbleRb == null) return;
+
+        bubbles.Remove(bubbleRb);
+        Destroy(bubbleRb.gameObject);
+    }
+
+    public void DestroyAllBubbles()
+    {
+        for (int i = 0;i < bubbles.Count;i++)
+        {
+            if (bubbles[i] != null)
+            {
+                Destroy(bubbles[i].gameObject);
+            }
+        }
+        bubbles.Clear();
     }
 
     public void SpawnJelly()
@@ -161,14 +199,14 @@ public class SpawnManager : MonoBehaviour
 
         int index = Random.Range(0, jellyfishPrefabs.Length);
 
-        if(LevelManager.Instance.currentLevel != 0)
+        if (LevelManager.Instance.currentLevel != 0)
         {
             return;
         }
 
         GameObject newJelly = Instantiate(jellyfishPrefabs[index], new Vector3(spawnPosX, spawnPosY, 0f), Quaternion.identity);
 
-        if(index == 0)
+        if (index == 0)
         {
             newJelly.transform.localScale = new Vector3(scale, scale, 1f);
         }
@@ -180,7 +218,7 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnTinyFish()
     {
-        if(LevelManager.Instance.currentLevel != 0)
+        if (LevelManager.Instance.currentLevel != 0)
         {
             return;
         }
@@ -213,9 +251,9 @@ public class SpawnManager : MonoBehaviour
             tinyFishTargetPos.position = new Vector3(rightX + 5f, randomY, 0f);
         }
 
-        float randomGravity = Random.Range(-0.05f,0f);
+        float randomGravity = Random.Range(-0.05f, 0f);
 
-        for ( int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             float spawnPosX = Random.Range(tinyFishSpawnPos.position.x - 1f, tinyFishSpawnPos.position.x + 1f);
             float spawnPosY = Random.Range(tinyFishSpawnPos.position.y - 1f, tinyFishSpawnPos.position.y + 1f);
@@ -238,8 +276,8 @@ public class SpawnManager : MonoBehaviour
         float topY = screenHalfHeight;
         float bottomY = -screenHalfHeight;
 
-        float[] randomX = {leftX, rightX};
-        float[] randomY = {bottomY, topY};
+        float[] randomX = { leftX, rightX };
+        float[] randomY = { bottomY, topY };
 
         int indexX = Random.Range(0, randomX.Length);
         int indexY = Random.Range(0, randomY.Length);
@@ -248,7 +286,7 @@ public class SpawnManager : MonoBehaviour
 
         if (LevelManager.Instance.currentLevel == 0)
         {
-            newPiranha = Instantiate(piranhaPrefab, new Vector3(randomX[indexX], randomY[indexY] , 0f), Quaternion.identity);
+            newPiranha = Instantiate(piranhaPrefab, new Vector3(randomX[indexX], randomY[indexY], 0f), Quaternion.identity);
         }
         else
         {
@@ -391,7 +429,7 @@ public class SpawnManager : MonoBehaviour
         float rightX = screenHalfWidth;
 
         float spawnPos = Random.Range(leftX, rightX);
-        
+
         GameObject newPabble = Instantiate(pabblePrefab, new Vector3(spawnPos, 7f, 0), Quaternion.identity);
         pabbles.Add(newPabble);
     }
@@ -416,7 +454,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnPlayer()
     {
         Vector3 initialSpawnPos = playerPos[LevelManager.Instance.currentLevel].position;
-        if(LevelManager.Instance.currentLevel == 0)
+        if (LevelManager.Instance.currentLevel == 0)
         {
             player = Instantiate(fishPrefab, initialSpawnPos, Quaternion.identity);
         }
@@ -424,7 +462,7 @@ public class SpawnManager : MonoBehaviour
         {
             player = Instantiate(eggPrefab, initialSpawnPos, Quaternion.identity);
         }
-        else if (LevelManager.Instance.currentLevel == 8)
+        else if (LevelManager.Instance.currentLevel >= 8)
         {
             player = Instantiate(snailPrefab, initialSpawnPos, Quaternion.identity);
         }
@@ -454,7 +492,7 @@ public class SpawnManager : MonoBehaviour
 
         Vector3 dir = (targetPos - currentPos).normalized;
         float playerDir = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        if(targetPos.x < currentPos.x)
+        if (targetPos.x < currentPos.x)
         {
             playerDir += 180f;
         }
@@ -466,7 +504,7 @@ public class SpawnManager : MonoBehaviour
         player.transform.position = Vector3.MoveTowards(
             player.transform.position,
             targetPos,
-            (moveSpeed-1f) * Time.deltaTime
+            (moveSpeed - 1f) * Time.deltaTime
         );
 
         if (Vector3.Distance(player.transform.position, targetPos) < 0.05f)
@@ -503,7 +541,20 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnCircle()
     {
-        GameObject newCircle = Instantiate(circlePrefab, circlePos.position, Quaternion.identity);
+        Transform spawnPos = null;
+        if (LevelManager.Instance.currentLevel == 7)
+        {
+            spawnPos = circlePos;
+        }
+        else if (LevelManager.Instance.currentLevel == 9)
+        {
+            spawnPos = circlePos2;
+        }
+        else if (LevelManager.Instance.currentLevel == 10)
+        {
+            spawnPos = circlePos3;
+        }
+        GameObject newCircle = Instantiate(circlePrefab, spawnPos.position, Quaternion.identity);
         circles.Add(newCircle);
     }
 

@@ -75,6 +75,14 @@ public class Bee : MonoBehaviour
             SpawnManager.Instance.DestroyBee(rb);
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Water"))
+        {
+            Destroy(gameObject);
+            SpawnManager.Instance.DestroyBee(rb);
+        }
+    }
 
     private IEnumerator StunCoroutine(float duration)
     {
