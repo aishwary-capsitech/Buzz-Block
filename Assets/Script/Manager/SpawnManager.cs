@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
 
-    public GameObject beePrefeb, crowPrefab, playerPrefab, fishPrefab, eggPrefab, snailPrefab, piranhaPrefab, snakePrefab, circlePrefab, bubblePrefab, tinyFishPrefab;
+    public GameObject beePrefeb, crowPrefab, playerPrefab, fishPrefab, eggPrefab, snailPrefab, piranhaPrefab, snakePrefab, circlePrefab, bubblePrefab, tinyFishPrefab, spiderPrefab, webPrefab, beeHouse, slabPrefab, fanPrefab;
     public GameObject[] jellyfishPrefabs;
-    public Transform spawnPoint, kiteSpawnPoint, circlePos, circlePos2, circlePos3;
+    public Transform spawnPoint, kiteSpawnPoint, beeHouseSpawnPos, slabPos, fanPos, circlePos, circlePos2, circlePos3;
     public Transform[] playerPos;
-    public Transform tinyFishSpawnPos, tinyFishTargetPos;
+    public Transform tinyFishSpawnPos, tinyFishTargetPos, spiderPos;
 
     public float moveSpeed = 3f;
     public float steerStrength = 2f;
@@ -22,22 +23,39 @@ public class SpawnManager : MonoBehaviour
     private List<Rigidbody2D> bees = new List<Rigidbody2D>();
     private List<Rigidbody2D> kites = new List<Rigidbody2D>();
     private List<Rigidbody2D> piranha = new List<Rigidbody2D>();
+    private List<Rigidbody2D> bubbles = new List<Rigidbody2D>();
     private List<GameObject> players = new List<GameObject>();
     private List<GameObject> pabbles = new List<GameObject>();
     private List<GameObject> circles = new List<GameObject>();
-    private List<GameObject> bubbles = new List<GameObject>();
+    private List<GameObject> spiders = new List<GameObject>();
+    private List<GameObject> webs = new List<GameObject>();
+    private List<GameObject> slabs = new List<GameObject>();
+    private List<GameObject> fans = new List<GameObject>();
     private GameObject player;
     private Transform playerTransform;
-    private int maxBees = 5, count = 0;
-    private float spawnInterval = 0.25f, pabbleSpawnInterval = 1.7f, bubbleSpawnInterval = 0.4f, jellySpawnInterval = 3f, tinnyFishSpawnInterval = 10f, nextSpawnTime, pabbleNextSpawnTime, bubbleNextSpawnTime, jellyNextSpawnTime, tinnyFishNextSpawnTime;
+    private int maxBees = 5, count = 0, webCount = 0, slabCount = 0;
+    private float spawnInterval = 0.3f, pabbleSpawnInterval = 1.7f, bubbleSpawnInterval = 0.4f, jellySpawnInterval = 3f, tinnyFishSpawnInterval = 10f, webSpawnInterval = 2.5f, nextSpawnTime, pabbleNextSpawnTime, bubbleNextSpawnTime, jellyNextSpawnTime, tinnyFishNextSpawnTime, webNextSpawnTime;
     private Vector3 targetPos;
     private GameObject sharkPrefab, kitePrefab, pabblePrefab;
+
+    private GameObject currentSlab;
+    private Rigidbody2D slabRb;
+    private Rigidbody2D fanRb;
+    private bool slabActivated = false;
 
     private void Awake()
     {
         Instance = this;
 
         SetNewTargetPosition();
+    }
+
+    private void Update()
+    {
+        if (LevelManager.Instance.currentLevel == 15 || LevelManager.Instance.currentLevel == 16 || LevelManager.Instance.currentLevel == 17)
+        {
+            CheckFanRb();
+        }
     }
 
     void FixedUpdate()
@@ -48,19 +66,13 @@ public class SpawnManager : MonoBehaviour
             SpawnPiranha();
             nextSpawnTime = Time.time + spawnInterval;
             count++;
-            Debug.Log("Bees : " + count);
 
             if (count == 1)
             {
+                SpawnSpider();
                 SpawnKite();
             }
         }
-
-        //if (Time.time >= pabbleNextSpawnTime && DrawLineWithMouse.Instance.hasDrawn)
-        //{
-        //    SpawnPabbles();
-        //    pabbleNextSpawnTime = Time.time + pabbleSpawnInterval;
-        //}
 
         if (Time.time >= jellyNextSpawnTime && !UIManager.Instance.startPanel.activeSelf)
         {
@@ -80,6 +92,29 @@ public class SpawnManager : MonoBehaviour
             tinnyFishNextSpawnTime = Time.time + tinnyFishSpawnInterval;
         }
 
+        if (Time.time >= webNextSpawnTime && DrawLineWithMouse.Instance.hasDrawn)
+        {
+            SpawnSpiderWeb();
+            webNextSpawnTime = Time.time + webSpawnInterval;
+            webCount++;
+        }
+
+        if (currentSlab == null) return;
+
+        if (DrawLineWithMouse.Instance.hasDrawn && !slabActivated)
+        {
+            slabRb.bodyType = RigidbodyType2D.Dynamic;
+            slabRb.gravityScale = 0.7f;
+            slabActivated = true;
+        }
+
+        if (Time.time >= nextSpawnTime && slabCount != 1)
+        {
+            slabCount++;
+            if(slabCount == 1)
+                SpawnSlab();
+        }
+
         if (playerTransform == null) return;
 
         if (LevelManager.Instance.currentLevel == 0)
@@ -88,11 +123,11 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SnakeScale());
         StartCoroutine(SnakeShrink());
 
-        if (Time.time >= pabbleNextSpawnTime && DrawLineWithMouse.Instance.hasDrawn)
-        {
-            SpawnPabbles();
-            pabbleNextSpawnTime = Time.time + pabbleSpawnInterval;
-        }
+        //if (Time.time >= pabbleNextSpawnTime && DrawLineWithMouse.Instance.hasDrawn)
+        //{
+        //    SpawnPabbles();
+        //    pabbleNextSpawnTime = Time.time + pabbleSpawnInterval;
+        //}
     }
 
     public void SpawnBubbles()
@@ -114,18 +149,21 @@ public class SpawnManager : MonoBehaviour
         float spawnPosXLvl9 = Random.Range(-1.8f, -0.3f);
         float spawnPosYLvl9 = Random.Range(-5.7f, -3.5f);
 
+        float spawnPosXLvl13 = Random.Range(-1.25f, 2f);
+        float spawnPosYLvl13 = Random.Range(-5.4f, -3f);
+
         float scale = 0;
         if (LevelManager.Instance.currentLevel == 0)
         {
             scale = Random.Range(0.15f, 0.5f);
         }
-        else if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9)
+        else if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 13)
         {
             scale = Random.Range(0.15f, 0.3f);
         }
         bubblePrefab.transform.localScale = new Vector3(scale, scale, 1f);
 
-        string[] hexColors = { "#589FDB", "#9AB9D2" };
+        string[] hexColors = { "#589FDB", "#9AB9D2", "#988DE5" };
         Color[] colors = new Color[hexColors.Length];
         for (int i = 0; i < hexColors.Length; i++)
         {
@@ -138,31 +176,34 @@ public class SpawnManager : MonoBehaviour
         {
             newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosX, spawnPosY, 0f), Quaternion.identity);
             newBubble.GetComponent<SpriteRenderer>().color = colors[0];
-            //bubbles.Add(newBubble);
         }
         else
         {
             if (LevelManager.Instance.currentLevel == 8)
             {
                 newBubble = Instantiate(bubblePrefab, new Vector3(minorSpawnPosX, minorSpawnPosY, 0f), Quaternion.identity);
-                //newBubble.GetComponent<SpriteRenderer>().color = colors[1];
-                //bubbles.Add(newBubble);
+                newBubble.GetComponent<SpriteRenderer>().color = colors[1];
             }
             if (LevelManager.Instance.currentLevel == 9)
             {
                 newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosXLvl9, spawnPosYLvl9, 0f), Quaternion.identity);
-                //newBubble.GetComponent<SpriteRenderer>().color = colors[1];
-                //bubbles.Add(newBubble);
-            }
-
-            if(newBubble != null)
                 newBubble.GetComponent<SpriteRenderer>().color = colors[1];
+            }
+            if (LevelManager.Instance.currentLevel == 13)
+            {
+                newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosXLvl13, spawnPosYLvl13, 0f), Quaternion.identity);
+                newBubble.GetComponent <SpriteRenderer>().color = colors[2];
+            }
         }
 
-        bubbles.Add(newBubble);
+        if(newBubble != null)
+        {
+            Rigidbody2D bubbleNewRb = newBubble.GetComponent<Rigidbody2D>(); 
+            bubbles.Add(bubbleNewRb);
+        }
     }
 
-    public void DestroyBubble(GameObject bubbleRb)
+    public void DestroyBubble(Rigidbody2D bubbleRb)
     {
         if (bubbleRb == null) return;
 
@@ -380,20 +421,23 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnKite()
     {
-        GameObject newKite;
+        GameObject newKite = null;
         //newKite = Instantiate(kitePrefab, kiteSpawnPoint.position, Quaternion.identity);
 
-        if (LevelManager.Instance.currentLevel == 0)
+        if (newKite != null)
         {
-            newKite = Instantiate(sharkPrefab, kiteSpawnPoint.position, Quaternion.identity);
-        }
-        else
-        {
-            newKite = Instantiate(kitePrefab, kiteSpawnPoint.position, Quaternion.identity);
-        }
+            if (LevelManager.Instance.currentLevel == 0)
+            {
+                newKite = Instantiate(sharkPrefab, kiteSpawnPoint.position, Quaternion.identity);
+            }
+            else
+            {
+                newKite = Instantiate(kitePrefab, kiteSpawnPoint.position, Quaternion.identity);
+            }
 
-        Rigidbody2D rb = newKite.GetComponent<Rigidbody2D>();
-        kites.Add(rb);
+            Rigidbody2D rb = newKite.GetComponent<Rigidbody2D>();
+            kites.Add(rb);
+        }
     }
 
     // Destroy a single bee
@@ -419,6 +463,55 @@ public class SpawnManager : MonoBehaviour
 
         kites.Clear();
         count = 0;
+    }
+
+    public void SpawnSpider()
+    {
+        GameObject spider = null;
+
+        if (LevelManager.Instance.currentLevel == 11)
+        {
+            spider = Instantiate(spiderPrefab, spiderPos.position, Quaternion.identity);
+        }
+
+        spiders.Add(spider);
+    }
+
+    public void DestroyAllSpiders()
+    {
+        for (int i = 0;i < spiders.Count;i++)
+        {
+            if (spiders[i] != null)
+            {
+                Destroy(spiders[i]);
+            }
+        }
+        spiders.Clear();
+    }
+
+    public void SpawnSpiderWeb()
+    {
+        GameObject web = null;
+
+        if (LevelManager.Instance.currentLevel == 11)
+        {
+            web = Instantiate(webPrefab, spiderPos.position, Quaternion.identity);
+        }
+
+        webs.Add(web);
+    }
+
+    public void DestroyAllSpiderWebs()
+    {
+        for (int i = 0; i < webs.Count; i++)
+        {
+            if (webs[i] != null)
+            {
+                Destroy(webs[i]);
+            }
+        }
+        webs.Clear();
+        webCount = 0;
     }
 
     public void SpawnPabbles()
@@ -578,6 +671,87 @@ public class SpawnManager : MonoBehaviour
         {
             isAllEnemyDead = true;
         }
+    }
+
+    public void SpawnSlab()
+    {
+        if (currentSlab != null)
+        {
+            Destroy(currentSlab);
+        }
+
+        currentSlab = Instantiate(slabPrefab, slabPos.position, Quaternion.Euler(-60f, -30f, 0f));
+
+        slabRb = currentSlab.GetComponent<Rigidbody2D>();
+
+        slabRb.linearVelocity = Vector2.zero;
+        slabRb.angularVelocity = 0f;
+        slabRb.bodyType = RigidbodyType2D.Kinematic;
+
+        slabActivated = false;
+    }
+
+    public void DestroyAllSlabs()
+    {
+        for (int i = 0; i < slabs.Count; i++)
+        {
+            if(slabs[i] != null)
+            {
+                Destroy(slabs[i]);
+                slabActivated = false;
+            }
+        }
+        slabs.Clear();
+    }
+
+    public void SpawnFan()
+    {
+        if (fanPrefab == null)
+        {
+            Debug.Log("FanPrefab Null");
+            return;
+        }
+
+        GameObject fan = null;
+
+        if (fan == null)
+        {
+            Debug.Log("Fan Null");
+        }
+        if (LevelManager.Instance.currentLevel == 15 || LevelManager.Instance.currentLevel == 16 || LevelManager.Instance.currentLevel == 17)
+        {
+            fan = Instantiate(fanPrefab, fanPos.position, Quaternion.identity);
+            Debug.Log("Fan Spawned");
+        }
+        fanRb = fan.GetComponent<Rigidbody2D>();
+        fans.Add(fan);
+    }
+
+    void CheckFanRb()
+    {
+        if (fanRb == null) return;
+
+        if (DrawLineWithMouse.Instance.hasDrawn)
+        {
+            fanRb.gravityScale = -2f;
+        }
+        else
+        {
+            fanRb.gravityScale = 0f;
+        }
+    }
+
+    public void DestroyAllFans()
+    {
+        for (int i = 0;i < fans.Count; i++)
+        {
+            if (fans[i] != null)
+            {
+                Destroy(fans[i]);
+            }
+        }
+        //Destroy(fanRb);
+        fans.Clear();
     }
 
     private IEnumerator SnakeScale()

@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public bool isGameOver = false;
 
     private SpriteRenderer sr;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
         }
 
         sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
@@ -27,7 +29,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+        TogglePlayerBodyType();
+        DestroyPlayer();
     }
 
     private void ChangeImage()
@@ -55,14 +58,14 @@ public class Player : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Bee") || collision.gameObject.CompareTag("Kite") || collision.gameObject.CompareTag("Spike") 
-            || collision.gameObject.CompareTag("Pabble")
+            || collision.gameObject.CompareTag("Pabble") || collision.gameObject.CompareTag("Chemical")
             )
         {
             isGameOver = true;
             UIManager.Instance.GameOver();
             Debug.Log("Game Over");
 
-            ChangeImage();
+            //ChangeImage();
 
             if (collision.gameObject.CompareTag("Bee"))
             {
@@ -80,6 +83,53 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Collided with Pabble");
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isGameOver)
+        {
+            return;
+        }
+
+        if ( collision.gameObject.CompareTag("Chemical"))
+        {
+            isGameOver = true;
+            UIManager.Instance.GameOver();
+            Debug.Log("Game Over");
+        }
+    }
+
+    private void TogglePlayerBodyType()
+    {
+        if (LevelManager.Instance.currentLevel == 15 || LevelManager.Instance.currentLevel == 16 || LevelManager.Instance.currentLevel == 17)
+        {
+            if (DrawLineWithMouse.Instance.hasDrawn)
+            {
+                rb.gravityScale = 1f;
+                rb.bodyType = RigidbodyType2D.Dynamic;
+                //Debug.Log(rb.bodyType);
+            }
+            else
+            {
+                rb.gravityScale = 0f;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                //Debug.Log(rb.bodyType);
+            }
+        }
+    }
+
+    private void DestroyPlayer()
+    {
+        float minY = -5.5f, maxY = 5.5f;
+
+        if (gameObject.transform.position.y < minY || gameObject.transform.position.y > maxY)
+        {
+            isGameOver = true;
+            UIManager.Instance.GameOver();
+            Debug.Log("Game Over");
+            //Destroy(gameObject);
         }
     }
 }

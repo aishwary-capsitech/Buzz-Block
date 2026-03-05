@@ -77,7 +77,7 @@ public class Bee : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Water"))
+        if (collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Chemical"))
         {
             Destroy(gameObject);
             SpawnManager.Instance.DestroyBee(rb);

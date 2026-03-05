@@ -11,6 +11,7 @@ TagManager:
   - Pabble
   - Water
   - Wall
+  - Chemical
   layers:
   - Default
   - TransparentFX

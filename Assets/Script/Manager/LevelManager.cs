@@ -38,9 +38,11 @@ public class LevelManager : MonoBehaviour
 
     public void DisplayLevel()
     {
+        string targetLevel = "Level" + currentLevel;
+
         foreach (GameObject level in levels)
         {
-            if (level.name.Contains(currentLevel.ToString()))
+            if (level.name == targetLevel)
             {
                 level.SetActive(true);
             }

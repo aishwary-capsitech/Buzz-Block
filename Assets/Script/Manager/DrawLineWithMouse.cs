@@ -90,11 +90,23 @@ public class DrawLineWithMouse : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPos.z = 0;
 
-        Collider2D hit = Physics2D.OverlapPoint(worldPos);
-        if (hit != null)
+        //Collider2D hit = Physics2D.OverlapPoint(worldPos);
+        //if (hit != null)
+        //{
+        //    return;
+        //}
+
+        Vector2 wordPoint2D = worldPos;
+        if (localPoints.Count > 0)
         {
-            return;
-        }
+            Vector2 previousWorld = transform.TransformPoint(previousPoint);
+
+            RaycastHit2D hit = Physics2D.Linecast(previousWorld, wordPoint2D);
+            if (hit.collider != null)
+            {
+                return;
+            }
+        } 
 
         Vector2 localPos = transform.InverseTransformPoint(worldPos);
 
@@ -132,6 +144,15 @@ public class DrawLineWithMouse : MonoBehaviour
         {
             SpawnManager.Instance.SpawnCircle();
         }
+
+        //if (currentLevel == 15)
+        //{
+        //    rb.mass = 2f;
+        //}
+        //else
+        //{
+        //    rb.mass = 10f;
+        //}
     }
 
     public void ClearLine()
