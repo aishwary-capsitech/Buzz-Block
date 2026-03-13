@@ -9,7 +9,7 @@ public class Slab : MonoBehaviour
 
     void Update()
     {
-        DestroySlab();
+        //DestroySlab();
     }
 
     void DestroySlab()

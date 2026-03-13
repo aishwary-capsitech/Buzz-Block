@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124f444e833447049b4a678f08c4f33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3.5
   stunDuration: 0.2
   stunToPlayer: 0.07
   stunToBee: 0.03

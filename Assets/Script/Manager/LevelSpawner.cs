@@ -7,6 +7,7 @@ public class LevelSpawner : MonoBehaviour
 
     [Header("Level Data")]
     public LevelData[] levels;
+    public GameObject[] AllLevels;
     public int currentLevelIndex = 0;
 
     [Header("Prefabs")]

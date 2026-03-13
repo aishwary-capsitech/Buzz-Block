@@ -21,15 +21,25 @@ public class Bubble : MonoBehaviour
 
     void DestroyBubble()
     {
+        float topY = -3.3f, topYAlt = -3.7f;
+
         if (LevelManager.Instance.currentLevel == 0)
         {
             Destroy(gameObject, 1.5f);
         }
+
         if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 13) {
 
-            float topY = -3.3f;
 
             if(gameObject.transform.position.y > topY)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        if (LevelManager.Instance.currentLevel == 19)
+        {
+            if (gameObject.transform.position.y > topYAlt)
             {
                 Destroy(gameObject);
             }

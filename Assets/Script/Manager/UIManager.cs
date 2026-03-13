@@ -15,12 +15,17 @@ public class UIManager : MonoBehaviour
     public GameObject pauseResumeIcon;
     public Sprite[] musicIcons;
     public Sprite[] soundIcons;
+    public Sprite[] vibrateIcons;
     public GameObject music;
     public GameObject sound;
+    public GameObject vibrate;
+    public GameObject[] musicObjects;
+    public GameObject[] soundObjects;
+    public GameObject[] vibrateObjects;
 
     [SerializeField] private DrawLineWithMouse drawLine;
     private LineRenderer lr;
-    private bool isGameRunning = false, isPaused = false, isSettingOpen = false, isMusicOn = true, isSoundOn = true;
+    private bool isGameRunning = false, isPaused = false, isSettingOpen = false, isMusicOn = true, isSoundOn = true, isVibrateOn = true;
 
     private void Awake()
     {
@@ -46,6 +51,7 @@ public class UIManager : MonoBehaviour
         drawLine.canDraw = false;
 
         SpawnManager.Instance.DestroyAllSlabs();
+        AudioManager.Instance.BgMusic();
     }
 
     private void Update()
@@ -63,7 +69,7 @@ public class UIManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isGameRunning)
+        if (!isGameRunning || Player.Instance == null)
         {
             return;
         }
@@ -73,13 +79,18 @@ public class UIManager : MonoBehaviour
             UpdateTimer();
         }
 
-        if ((timerImage != null && timerImage.fillAmount <= 0) || SpawnManager.Instance.isAllEnemyDead)
+        if ((((timerImage != null && timerImage.fillAmount <= 0) || SpawnManager.Instance.isAllEnemyDead) && LevelManager.Instance.currentLevel != 21))
         {
             GameWin();
             if (LevelManager.Instance.currentLevel == 7)
             {
                 Player.Instance.WinImage();
             }
+        }
+
+        if ((LevelManager.Instance.currentLevel == 21 && Player.Instance.isReachedFinish))
+        {
+            GameWin();
         }
 
         DisplayLevel();
@@ -92,10 +103,11 @@ public class UIManager : MonoBehaviour
             levelText.text = "Level " + LevelManager.Instance.currentLevel;
         }
 
-        if (LevelManager.Instance.currentLevel == 17)
+        if (LevelManager.Instance.currentLevel == 21)
         {
             winText.text = "Levels Coming Soon \n Stay Tuned";
             nextButton.SetActive(false);
+            //nextButton.GetComponent<Button>().interactable = false;
         }
         else
         {
@@ -105,6 +117,8 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
+        AudioManager.Instance.Tap();
+
         isGameRunning = true;
         gamePlayPanel.SetActive(true);
         LevelManager.Instance.DisplayLevel();
@@ -158,12 +172,13 @@ public class UIManager : MonoBehaviour
     {
         isGameRunning = false;
         gameWinPanel.SetActive(true);
+        drawLine.canDraw = false;
     }
 
     public void GameOver()
     {
 #if UNITY_ANDROID || UNITY_IOS
-        if (!gameWinPanel.activeSelf)
+        if (!gameWinPanel.activeSelf && isVibrateOn)
         {
             Handheld.Vibrate();
         }
@@ -174,14 +189,16 @@ public class UIManager : MonoBehaviour
             isGameRunning = false;
             gameOverPanel.SetActive(true);
             gameWinPanel.SetActive(false);
-            DrawLineWithMouse.Instance.canDraw = false;
-            if (LevelManager.Instance.currentLevel == 13)
-                SpawnManager.Instance.DestroyAllSlabs();
+            drawLine.canDraw = false;
+            //if (LevelManager.Instance.currentLevel == 13)
+            //    SpawnManager.Instance.DestroyAllSlabs();
         }
     }
 
     public void BackHome()
     {
+        AudioManager.Instance.Tap();
+
         DrawLineWithMouse.Instance.AddKinematic();
         SpawnManager.Instance.DestroyAllBees();
         SpawnManager.Instance.DestroyAllPiranha();
@@ -203,17 +220,26 @@ public class UIManager : MonoBehaviour
         //    pausePanel.SetActive(false);
         ClosePausePanel();
         ResetTimer();
-        Player.Instance.isGameOver = false;
+        if (Player.Instance != null)
+        {
+            Player.Instance.isGameOver = false;
+            Player.Instance.isReachedFinish = false;
+            Debug.Log("Finish : " + Player.Instance.isReachedFinish);
+        }
         SpawnManager.Instance.isAllEnemyDead = false;
         drawLine.ClearLine();
+        drawLine.isStartedDrawing = false;
+        Debug.Log(drawLine.isStartedDrawing);
         lr.enabled = false;
         startPanel.SetActive(true);
         LevelManager.Instance.currentLevel = LevelManager.Instance.startLevel;
-
+        SpawnManager.Instance.beeCount = 0;
     }
 
     public void RetryGame()
     {
+        AudioManager.Instance.Tap();
+
         isGameRunning = true;
         DrawLineWithMouse.Instance.hasDrawn = false;
         DrawLineWithMouse.Instance.AddKinematic();
@@ -241,10 +267,15 @@ public class UIManager : MonoBehaviour
         SpawnManager.Instance.DestroyPlayer();
         SpawnManager.Instance.SpawnPlayer();
 
-        if (LevelManager.Instance.currentLevel == 7 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 10)
+        if (LevelManager.Instance.currentLevel == 7 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 10 || LevelManager.Instance.currentLevel == 18)
         {
             SpawnManager.Instance.DestroyAllCircles();
         }
+
+        //if (LevelManager.Instance.currentLevel == 20)
+        //{
+        //    Pendulum.Instance.ResetPendulum();
+        //}
 
         if (gameOverPanel.activeSelf)
             gameOverPanel.SetActive(false);
@@ -258,16 +289,24 @@ public class UIManager : MonoBehaviour
 
         ResetTimer();
         Player.Instance.isGameOver = false;
+        Player.Instance.isReachedFinish = false;
+        Debug.Log("Finish : " + Player.Instance.isReachedFinish);
         SpawnManager.Instance.isAllEnemyDead = false;
 
         drawLine.ClearLine();
         lr.enabled = true;
 
+        drawLine.isStartedDrawing = false;
+
         StartCoroutine(EnableDrawingNextFrame());
+
+        SpawnManager.Instance.beeCount = 0;
     }
 
     public void NextGame()
     {
+        AudioManager.Instance.Tap();
+
         isGameRunning = true;
         DrawLineWithMouse.Instance.AddKinematic();
 
@@ -313,6 +352,7 @@ public class UIManager : MonoBehaviour
     public void ToggleSettingPanel()
     {
         isSettingOpen = !isSettingOpen;
+        AudioManager.Instance.Tap();
 
         if (isSettingOpen)
         {
@@ -327,34 +367,60 @@ public class UIManager : MonoBehaviour
     public void ToggleMusic()
     {
         isMusicOn = !isMusicOn;
+        AudioManager.Instance.BgMusicControl(isMusicOn);
+        AudioManager.Instance.Tap();
 
         if (isMusicOn)
         {
-            music.GetComponent<Image>().sprite = musicIcons[0];
+            foreach (GameObject music in musicObjects)
+                music.GetComponent<Image>().sprite = musicIcons[0];
         }
         else
         {
-            music.GetComponent<Image>().sprite = musicIcons[1];
+            foreach (GameObject music in musicObjects)
+                music.GetComponent<Image>().sprite = musicIcons[1];
         }
     }
 
     public void ToggleSound()
     {
         isSoundOn = !isSoundOn;
+        AudioManager.Instance.SFXControl(isSoundOn);
+        AudioManager.Instance.Tap();
 
         if (isSoundOn)
         {
-            sound.GetComponent<Image>().sprite = soundIcons[0];
+            foreach (GameObject sound in soundObjects)
+                sound.GetComponent<Image>().sprite = soundIcons[0];
         }
         else
         {
-            sound.GetComponent<Image>().sprite = soundIcons[1];
+            foreach (GameObject sound in soundObjects)
+                sound.GetComponent<Image>().sprite = soundIcons[1];
+        }
+    }
+
+    public void ToggleVibration()
+    {
+        isVibrateOn = !isVibrateOn;
+        AudioManager.Instance.Tap();
+
+        if (isVibrateOn)
+        {
+            foreach (GameObject vibrate in vibrateObjects)
+                vibrate.GetComponent<Image>().sprite = vibrateIcons[0];
+        }
+        else
+        {
+            foreach (GameObject vibrate in vibrateObjects)
+                vibrate.GetComponent<Image>().sprite = vibrateIcons[1];
         }
     }
 
     public void TogglePauseResume()
     {
         isPaused = !isPaused;
+        AudioManager.Instance.Tap();
 
         if (isPaused)
         {
@@ -376,6 +442,7 @@ public class UIManager : MonoBehaviour
 
     public void ClosePausePanel()
     {
+        AudioManager.Instance.Tap();
         isPaused = false;
         pausePanel.SetActive(false);
         pauseResumeIcon.GetComponent<Image>().sprite = pauseResumeSprites[0];
@@ -385,6 +452,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseQuitPanel()
     {
+        AudioManager.Instance.Tap();
         quitPanel.SetActive(false);
     }
 

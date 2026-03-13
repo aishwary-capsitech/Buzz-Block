@@ -12,14 +12,15 @@ TagManager:
   - Water
   - Wall
   - Chemical
+  - SpiderWeb
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DrawLine
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 

@@ -122,7 +122,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: aefc2135fddfe224f8ab7829bd11d17a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.5
   distance: 7.2
+  rotationSpeed: 360
 --- !u!1 &279379365267048820
 GameObject:
   m_ObjectHideFlags: 0

@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 1389619919239457655}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,4 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09951ea8d7a3ba647a71c7f60aed0d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  egg: {fileID: 0}
+  brokenEgg: {fileID: 0}
+  chicEgg: {fileID: 0}
   isGameOver: 0

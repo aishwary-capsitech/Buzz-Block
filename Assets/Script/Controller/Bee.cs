@@ -8,7 +8,7 @@ public class Bee : MonoBehaviour
     private bool isStunned = false;
 
     [Header("Movement")]
-    public float moveSpeed = 3f;
+    public float moveSpeed = 3.5f;
 
     [Header("Stun Settings")]
     public float stunDuration = 0.2f;
@@ -28,6 +28,11 @@ public class Bee : MonoBehaviour
         {
             player = SpawnManager.Instance.GetPlayerTransform();
         }
+
+        //if (LevelManager.Instance.currentLevel == 21 && DrawLineWithMouse.Instance.hasDrawn)
+        //{
+        //    StartCoroutine(AutoDestroyBee());
+        //}
     }
 
     void FixedUpdate()
@@ -35,9 +40,28 @@ public class Bee : MonoBehaviour
         if (isStunned || player == null) return;
 
         Vector2 dir = ((Vector2)player.position - rb.position).normalized;
-        rb.linearVelocity = dir * moveSpeed;
+
+        if (LevelManager.Instance.currentLevel == 21)
+        {
+            if (!DrawLineWithMouse.Instance.hasDrawn)
+            {
+                rb.linearVelocity = dir * (moveSpeed - 2.5f);
+            }
+            else
+            {
+                rb.linearVelocity = dir * moveSpeed;
+            }
+        }
 
         ChangeDir();
+
+        if (LevelManager.Instance.currentLevel == 21)
+        {
+            if (DrawLineWithMouse.Instance.hasDrawn)
+            {
+                StartCoroutine(AutoDestroyBee(3f));
+            }
+        }
     }
 
     private void ChangeDir()
@@ -54,7 +78,7 @@ public class Bee : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider == DrawLineWithMouse.Instance.edgeCollider)
+        if (collision.collider == DrawLineWithMouse.Instance.edgeCollider || collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall"))
         {
             StartCoroutine(StunCoroutine(stunDuration));
         }
@@ -64,10 +88,10 @@ public class Bee : MonoBehaviour
             StartCoroutine(StunCoroutine(stunToPlayer));
         }
 
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            StartCoroutine(StunCoroutine(stunDuration));
-        }
+        //if (collision.gameObject.CompareTag("Ground"))
+        //{
+        //    StartCoroutine(StunCoroutine(stunDuration));
+        //}
 
         if (collision.gameObject.CompareTag("Spike"))
         {
@@ -97,5 +121,17 @@ public class Bee : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         isStunned = false;
+    }
+
+    private IEnumerator AutoDestroyBee(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (SpawnManager.Instance != null)
+        {
+            SpawnManager.Instance.DestroyBee(rb);
+            //SpawnManager.Instance.beeCount--;
+            //Debug.Log("Bee Count : "+SpawnManager.Instance.beeCount);
+        }
     }
 }

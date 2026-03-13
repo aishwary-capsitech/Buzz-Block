@@ -20,8 +20,14 @@ public class CircularSpike : MonoBehaviour
 
     private void Update()
     {
-        if (level != 10) return;
+        if (level == 10)
+        {
+            MovementLvl10();
+        }
+    }
 
+    private void MovementLvl10()
+    {
         Move();
         HandleRotationDirection();
         RotateSpike();
@@ -33,6 +39,12 @@ public class CircularSpike : MonoBehaviour
     {
         float movement = Mathf.PingPong(Time.time * speed, distance);
         transform.position = startPos + Vector3.right * movement;
+    }
+
+    private void MoveUpward()
+    {
+        float movement = Mathf.PingPong(Time.time * speed, distance/2);
+        transform.position = startPos + Vector3.up * movement;
     }
 
     private void HandleRotationDirection()

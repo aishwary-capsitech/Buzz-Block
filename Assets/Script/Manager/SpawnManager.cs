@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject beePrefeb, crowPrefab, playerPrefab, fishPrefab, eggPrefab, snailPrefab, piranhaPrefab, snakePrefab, circlePrefab, bubblePrefab, tinyFishPrefab, spiderPrefab, webPrefab, beeHouse, slabPrefab, fanPrefab;
     public GameObject[] jellyfishPrefabs;
-    public Transform spawnPoint, kiteSpawnPoint, beeHouseSpawnPos, slabPos, fanPos, circlePos, circlePos2, circlePos3;
+    public Transform spawnPoint, kiteSpawnPoint, beeHouseSpawnPos, slabPos, fanPos, circlePos, circlePos2, circlePos3, circlePos4;
     public Transform[] playerPos;
     public Transform tinyFishSpawnPos, tinyFishTargetPos, spiderPos;
 
@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
 
     public bool isAllEnemyDead = false;
 
-    private List<Rigidbody2D> bees = new List<Rigidbody2D>();
+    [HideInInspector] public List<Rigidbody2D> bees = new List<Rigidbody2D>();
     private List<Rigidbody2D> kites = new List<Rigidbody2D>();
     private List<Rigidbody2D> piranha = new List<Rigidbody2D>();
     private List<Rigidbody2D> bubbles = new List<Rigidbody2D>();
@@ -31,10 +31,11 @@ public class SpawnManager : MonoBehaviour
     private List<GameObject> webs = new List<GameObject>();
     private List<GameObject> slabs = new List<GameObject>();
     private List<GameObject> fans = new List<GameObject>();
-    private GameObject player;
+    [HideInInspector] public GameObject player;
     private Transform playerTransform;
     private int maxBees = 5, count = 0, webCount = 0, slabCount = 0;
-    private float spawnInterval = 0.3f, pabbleSpawnInterval = 1.7f, bubbleSpawnInterval = 0.4f, jellySpawnInterval = 3f, tinnyFishSpawnInterval = 10f, webSpawnInterval = 2.5f, nextSpawnTime, pabbleNextSpawnTime, bubbleNextSpawnTime, jellyNextSpawnTime, tinnyFishNextSpawnTime, webNextSpawnTime;
+    public int beeCount = 0;
+    private float spawnInterval = 0.3f, beeSpawnInterval = 0.2f, pabbleSpawnInterval = 1.7f, bubbleSpawnInterval = 0.4f, jellySpawnInterval = 3f, tinnyFishSpawnInterval = 10f, webSpawnInterval = 2.5f, nextSpawnTime, beeNextSpawn, pabbleNextSpawnTime, bubbleNextSpawnTime, jellyNextSpawnTime, tinnyFishNextSpawnTime, webNextSpawnTime;
     private Vector3 targetPos;
     private GameObject sharkPrefab, kitePrefab, pabblePrefab;
 
@@ -43,6 +44,15 @@ public class SpawnManager : MonoBehaviour
     private Rigidbody2D fanRb;
     private bool slabActivated = false;
 
+    [Header("Bee Group Spawn")]
+    public float minBeeSpawnDelay = 5f;
+    public float maxBeeSpawnDelay = 8f;
+
+    public int minBeeGroup = 4;
+    public int maxBeeGroup = 6;
+
+    Coroutine beeSpawnRoutine;
+
     private void Awake()
     {
         Instance = this;
@@ -50,8 +60,31 @@ public class SpawnManager : MonoBehaviour
         SetNewTargetPosition();
     }
 
+    private void Start()
+    {
+        if (LevelManager.Instance.currentLevel == 21)
+        {
+            Debug.Log("SpawnBeeGroup");
+            StartCoroutine(SpawnBeeGroups());
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (beeSpawnRoutine != null)
+        {
+            StopCoroutine(beeSpawnRoutine);
+            beeSpawnRoutine = null;
+        }
+    }
+
     private void Update()
     {
+        if (LevelManager.Instance.currentLevel == 21 && beeSpawnRoutine == null)
+        {
+            beeSpawnRoutine = StartCoroutine(SpawnBeeGroups());
+        }
+
         if (LevelManager.Instance.currentLevel == 15 || LevelManager.Instance.currentLevel == 16 || LevelManager.Instance.currentLevel == 17)
         {
             CheckFanRb();
@@ -60,7 +93,14 @@ public class SpawnManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Time.time >= nextSpawnTime && count != maxBees && DrawLineWithMouse.Instance.hasDrawn)
+        //if (Time.time >= beeNextSpawn && beeCount != maxBees && LevelManager.Instance.currentLevel == 21 && !UIManager.Instance.startPanel.activeSelf)
+        //{
+        //    SpawnBee();
+        //    beeNextSpawn = Time.time + beeSpawnInterval;
+        //    beeCount++;
+        //}
+
+        if (Time.time >= nextSpawnTime && count != maxBees && DrawLineWithMouse.Instance.hasDrawn && LevelManager.Instance.currentLevel != 21)
         {
             SpawnBee();
             SpawnPiranha();
@@ -101,17 +141,19 @@ public class SpawnManager : MonoBehaviour
 
         if (currentSlab == null) return;
 
-        if (DrawLineWithMouse.Instance.hasDrawn && !slabActivated)
+        if (DrawLineWithMouse.Instance.hasDrawn 
+            && !slabActivated
+            )
         {
             slabRb.bodyType = RigidbodyType2D.Dynamic;
             slabRb.gravityScale = 0.7f;
             slabActivated = true;
         }
 
-        if (Time.time >= nextSpawnTime && slabCount != 1)
+        if (Time.time >= nextSpawnTime && slabCount != 1 && !UIManager.Instance.startPanel.activeSelf)
         {
             slabCount++;
-            if(slabCount == 1)
+            if(slabCount == 1 && LevelManager.Instance.currentLevel == 13)
                 SpawnSlab();
         }
 
@@ -152,12 +194,15 @@ public class SpawnManager : MonoBehaviour
         float spawnPosXLvl13 = Random.Range(-1.25f, 2f);
         float spawnPosYLvl13 = Random.Range(-5.4f, -3f);
 
+        float spawnPosXLvl19 = Random.Range(-2f, 2f);
+        float spawnPosYLvl19 = Random.Range(-5f, -3.7f);
+
         float scale = 0;
         if (LevelManager.Instance.currentLevel == 0)
         {
             scale = Random.Range(0.15f, 0.5f);
         }
-        else if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 13)
+        else if (LevelManager.Instance.currentLevel == 8 || LevelManager.Instance.currentLevel == 9 || LevelManager.Instance.currentLevel == 13 || LevelManager.Instance.currentLevel == 19)
         {
             scale = Random.Range(0.15f, 0.3f);
         }
@@ -192,7 +237,12 @@ public class SpawnManager : MonoBehaviour
             if (LevelManager.Instance.currentLevel == 13)
             {
                 newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosXLvl13, spawnPosYLvl13, 0f), Quaternion.identity);
-                newBubble.GetComponent <SpriteRenderer>().color = colors[2];
+                newBubble.GetComponent<SpriteRenderer>().color = colors[2];
+            }
+            if (LevelManager.Instance.currentLevel == 19)
+            {
+                newBubble = Instantiate(bubblePrefab, new Vector3(spawnPosXLvl19, spawnPosYLvl19, 0f), Quaternion.identity);
+                newBubble.GetComponent<SpriteRenderer>().color = colors[2];
             }
         }
 
@@ -354,14 +404,29 @@ public class SpawnManager : MonoBehaviour
     {
         GameObject newBee;
         //newBee = Instantiate(beePrefeb, spawnPoint.position, Quaternion.identity);
-        if (LevelManager.Instance.currentLevel == 0)
+
+        float screenTop = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
+        float screenLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        float screenRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
+
+        float randomX = Random.Range(screenLeft, screenLeft + 1f);
+        float randomY = Random.Range(screenTop - 1f, screenTop);
+
+        int currentLevel = LevelManager.Instance.currentLevel;
+
+        if (currentLevel == 0)
         {
             //newBee = Instantiate(piranhaPrefab, spawnPoint.position, Quaternion.identity);
             return;
         }
-        if (LevelManager.Instance.currentLevel == 7 || LevelManager.Instance.currentLevel == 8)
+        if (currentLevel == 7 || currentLevel == 8 || currentLevel == 15 || currentLevel == 16 || currentLevel == 17 || currentLevel == 19 || currentLevel == 20)
         {
             newBee = Instantiate(crowPrefab, spawnPoint.position, Quaternion.identity);
+        }
+        else if (currentLevel == 21)
+        {
+            Vector3 spawnPos = new Vector3(randomX, randomY, 0);
+            newBee = Instantiate(beePrefeb, spawnPos, Quaternion.identity);
         }
         else
         {
@@ -371,24 +436,67 @@ public class SpawnManager : MonoBehaviour
         bees.Add(rb);
     }
 
-    public void SpawnBeesInBunch()
+
+    IEnumerator SpawnBeeGroups()
     {
-        for (int i = 0; i < maxBees; i++)
+        while (LevelManager.Instance.currentLevel == 21)
         {
-            SpawnBee();
+            if (!UIManager.Instance.startPanel.activeSelf && beeCount == 0)
+                //if (!UIManager.Instance.startPanel.activeSelf && DrawLineWithMouse.Instance.hasDrawn)
+            {
+                int beeAmount = Random.Range(4, 7);
+                if (Player.Instance != null)
+                {
+                    Player.Instance.StopClearLineTimer();
+                }
+
+                for (int i = 0; i < beeAmount; i++)
+                {
+                    SpawnBee();
+                    beeCount++;
+
+                    yield return new WaitForSeconds(0.15f); // small gap between bees
+                }
+            }
+
+            float randomDelay = Random.Range(minBeeSpawnDelay, maxBeeSpawnDelay);
+            yield return new WaitForSeconds(randomDelay);
         }
+        beeSpawnRoutine = null;
     }
 
     // Destroy a single bee
+    //public void DestroyBee(Rigidbody2D beeRb)
+    //{
+    //    if (beeRb == null) return;
+
+    //    bees.Remove(beeRb);
+    //    Destroy(beeRb.gameObject);
+    //    //count = Mathf.Max(0, count - 1);
+
+    //    CheckIsEnemiesDead(isAllEnemyDead);
+    //}
+
     public void DestroyBee(Rigidbody2D beeRb)
     {
         if (beeRb == null) return;
 
         bees.Remove(beeRb);
-        Destroy(beeRb.gameObject);
-        //count = Mathf.Max(0, count - 1);
 
-        CheckIsEnemiesDead();
+        if (beeRb.gameObject != null)
+        {
+            Destroy(beeRb.gameObject);
+            beeCount = Mathf.Max(0, beeCount - 1);
+            Debug.Log("Bee Count : " + beeCount);
+        }
+
+        if (LevelManager.Instance.currentLevel != 21)  
+            CheckIsEnemiesDead(isAllEnemyDead);
+
+        if (LevelManager.Instance.currentLevel == 21 && beeCount == 0)
+        {
+            StartCoroutine(DrawLineWithMouse.Instance.ResetLineAfterEnemiesDead());
+        }
     }
 
     // Destroy ALL bees
@@ -404,6 +512,7 @@ public class SpawnManager : MonoBehaviour
 
         bees.Clear();
         count = 0;
+        beeCount = 0;
     }
 
     public void ResetSpawner()
@@ -635,6 +744,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnCircle()
     {
         Transform spawnPos = null;
+
         if (LevelManager.Instance.currentLevel == 7)
         {
             spawnPos = circlePos;
@@ -647,8 +757,34 @@ public class SpawnManager : MonoBehaviour
         {
             spawnPos = circlePos3;
         }
-        GameObject newCircle = Instantiate(circlePrefab, spawnPos.position, Quaternion.identity);
-        circles.Add(newCircle);
+        else if (LevelManager.Instance.currentLevel == 18)
+        {
+            float[] xPositions = { circlePos4.position.x + 2.5f, circlePos4.position.x, circlePos4.position.x - 2.5f };
+            float[] yPositions = { circlePos4.position.y + 0.5f, circlePos4.position.y, circlePos4.position.y - 1f };
+
+            //foreach (float x in xPositions)
+            //{
+            //    Vector3 spawnPosition = new Vector3(x, circlePos4.position.y, circlePos4.position.z);
+
+            //    GameObject newCircle = Instantiate(circlePrefab, spawnPosition, Quaternion.identity);
+            //    circles.Add(newCircle);
+            //}
+
+            for (int i = 0; i < xPositions.Length; i++)
+            {
+                Vector3 spawnPosition = new Vector3(xPositions[i], yPositions[i], circlePos4.position.z);
+                GameObject newCircle = Instantiate(circlePrefab, spawnPosition, Quaternion.identity);
+                circles.Add(newCircle);
+            }
+
+            return;
+        }
+
+        if (spawnPos != null)
+        {
+            GameObject newCircle = Instantiate(circlePrefab, spawnPos.position, Quaternion.identity);
+            circles.Add(newCircle);
+        }
     }
 
     public void DestroyAllCircles()
@@ -663,14 +799,17 @@ public class SpawnManager : MonoBehaviour
         circles.Clear();
     }
 
-    private void CheckIsEnemiesDead()
+    public bool CheckIsEnemiesDead(bool isAllDead)
     {
-        if (!DrawLineWithMouse.Instance.hasDrawn) return;
+        if (!DrawLineWithMouse.Instance.hasDrawn) return false;
 
         if (bees.Count == 0)
         {
             isAllEnemyDead = true;
         }
+
+        isAllDead = isAllEnemyDead;
+        return isAllDead;
     }
 
     public void SpawnSlab()
@@ -681,6 +820,8 @@ public class SpawnManager : MonoBehaviour
         }
 
         currentSlab = Instantiate(slabPrefab, slabPos.position, Quaternion.Euler(-60f, -30f, 0f));
+
+        slabs.Add(currentSlab);
 
         slabRb = currentSlab.GetComponent<Rigidbody2D>();
 
@@ -750,7 +891,6 @@ public class SpawnManager : MonoBehaviour
                 Destroy(fans[i]);
             }
         }
-        //Destroy(fanRb);
         fans.Clear();
     }
 
